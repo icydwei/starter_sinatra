@@ -1,0 +1,14 @@
+<h1>Create a Course</h1>
+
+<form action="/courses" method="post">
+    <label for="name">Course Name: </label>
+    <input type="text" name="name" >
+    <br>
+
+    <p>Enroll current students by selecting below: </p>
+    <% @students.each do |student| %>
+    <input type="checkbox" name="<%=student.name%>" id="<%=student.id%>" value="<%=student.id%>"><%= student.name%><br></input>
+    <% end %>
+
+    <p>New students can be enrolled in the course when their student account is created.</p>
+</form>

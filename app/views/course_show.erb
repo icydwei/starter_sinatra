@@ -1,0 +1,11 @@
+<h1> Course: <%= @course.name %> </h1>
+
+<h4>Enrolled Students:</h4>
+
+<ul>    
+    <% @course.students.each do |student| %>
+       <li><a href="/students/<%=student.id%>">
+       <%= student.name %></a>
+        </li>
+      <% end %>  
+</ul>
