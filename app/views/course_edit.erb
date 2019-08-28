@@ -1,0 +1,23 @@
+<h2>Edit Course & Roster</h2>
+
+<form action="/courses/<%= @course.id %>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+
+    <label for="name">Course Name: </label>
+
+    <input type="text" name="name" value="<%= @course.name %>">  
+    <br>
+
+    <p>Modify course roster by adding or removing students below: </p>
+    <% @students.each do |student| %>
+ 
+    <input type="checkbox" name="student_ids[]" id="<%=student.id%>" value="<%=student.id%>"<%= 'checked' if @course.student_ids.include?(student.id) %> ><%= student.name%><br></input> 
+    <% end %>
+
+    <p>New students can be enrolled in the course when their student account is created.</p>
+
+    <input type="submit" value="Save Course Changes">
+
+</form>
+<br>
+

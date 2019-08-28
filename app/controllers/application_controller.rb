@@ -22,7 +22,10 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/courses' do
-        
+
+        @course = Course.create(name: params[:name])
+        @course.update(student_ids: params[:student_ids])
+
         redirect "/courses/#{@course.id}"
     end
 
@@ -32,22 +35,21 @@ class ApplicationController < Sinatra::Base
     end
 
     get '/courses/:id/edit' do
-
+        @course = Course.find(params[:id])
+        @students = Student.all
         erb :course_edit
     end
     
-    post '/courses/:id' do
-
-        redirect "/courses/#{@course.id}"
-    end
-
-    patch 'courses/:id' do
-
+    patch '/courses/:id' do
+        @course = Course.find(params[:id])
+        @course.update(student_ids: params[:student_ids])
+        @course.update(name: params[:name])
         redirect "/courses/#{@course.id}"
     end
 
     delete '/courses/:id' do
-
+        @course = Course.find(params[:id])
+        @course.destroy
         redirect "/courses"
     end
 
@@ -56,7 +58,7 @@ class ApplicationController < Sinatra::Base
 #Student model routes
 
     get '/students/new' do
-            
+        @courses = Course.all
         erb :student_new
     end
 
@@ -66,7 +68,9 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/students' do
-        
+        @student = Student.create(name: params[:name])
+        @student.update(course_ids: params[:course_ids])
+
         redirect "/students/#{@student.id}"
     end
 
@@ -76,22 +80,21 @@ class ApplicationController < Sinatra::Base
     end
 
     get '/students/:id/edit' do
-
+        @student = Student.find(params[:id])
+        @courses = Course.all
         erb :student_edit
     end
 
-    post '/students/:id' do
-
-        redirect "/students/#{@student.id}"
-    end
-
-    patch 'students/:id' do
-
+    patch '/students/:id' do
+        @student = Student.find(params[:id])
+        @student.update(course_ids: params[:course_ids])
+        @student.update(name: params[:name])
         redirect "/students/#{@student.id}"
     end
 
     delete '/students/:id' do
-
+        @student = Student.find(params[:id])
+        @student.destroy
         redirect "/students"
     end
 

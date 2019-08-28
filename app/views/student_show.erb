@@ -9,3 +9,16 @@
         </li>
       <% end %>  
 </ul>
+
+<br>
+  <form method=get action="/students/<%= @student.id %>/edit">
+    <input type="submit" value="Edit Student Account">
+  </form><br>
+
+  <form method=post action="/students/<%= @student.id %>">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Student Account">
+  </form>
+
+<br>
+
